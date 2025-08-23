@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Upload\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
+</Project>
