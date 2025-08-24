@@ -1,11 +1,11 @@
 ﻿
 using Azure;
-using Azure.Data.Tables;
+//using Azure.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
 namespace ABCRetailers.Models
 {
-    public class Product : ITableEntity
+    public class Product 
     {
         public string PartitionKey { get; set; } = "Product";
         public string RowKey { get; set; } = Guid.NewGuid().ToString();

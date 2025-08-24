@@ -1,3 +1,5 @@
+using ABCRetailer.Services;
+
 namespace ABCRetailer
 {
     public class Program
@@ -8,6 +10,7 @@ namespace ABCRetailer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IAzureStorageService, AzureStorageService>();
 
             var app = builder.Build();
 

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ABCRetailers.Models;
-using ABCRetailers.Services;
+//using ABCRetailers.Services;
 
 namespace ABCRetailers.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly IStorageService _storageService;
+        //private readonly IStorageService _storageService;
 
-        public CustomerController(IStorageService storageService)
+        /*public CustomerController(IStorageService storageService)
         {
             _storageService = storageService;
         }
@@ -92,6 +92,6 @@ namespace ABCRetailers.Controllers
                 TempData["Error"] = $"Error deleting customer: {ex.Message}";
             }
             return RedirectToAction(nameof(Index));
-        }
+        }*/
     }
 }
