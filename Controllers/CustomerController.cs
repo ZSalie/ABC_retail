@@ -6,9 +6,9 @@ namespace ABCRetailers.Controllers
 {
     public class CustomerController : Controller
     {
-        //private readonly IStorageService _storageService;
+        private readonly IAzureStorageService _storageService;
 
-        /*public CustomerController(IStorageService storageService)
+        public CustomerController(IAzureStorageService storageService)
         {
             _storageService = storageService;
         }
@@ -92,6 +92,6 @@ namespace ABCRetailers.Controllers
                 TempData["Error"] = $"Error deleting customer: {ex.Message}";
             }
             return RedirectToAction(nameof(Index));
-        }*/
+        }
     }
 }

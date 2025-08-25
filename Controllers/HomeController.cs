@@ -19,16 +19,16 @@ namespace ABCRetailers.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var products = await _storageService.GetAllEntitiesAsync<Product>();
-            //var customers = await _storageService.GetAllEntitiesAsync<Customer>();
-            //var orders = await _storageService.GetAllEntitiesAsync<Order>();
+            var products = await _storageService.GetAllEntitiesAsync<Product>();
+            var customers = await _storageService.GetAllEntitiesAsync<Customer>();
+            var orders = await _storageService.GetAllEntitiesAsync<Order>();
 
             var viewModel = new HomeViewModel
             {
-                //FeaturedProducts = products.Take(5).ToList(),
-                //ProductCount = products.Count,
-                //CustomerCount = customers.Count,
-                //OrderCount = orders.Count
+                FeaturedProducts = products.Take(5).ToList(),
+                ProductCount = products.Count,
+                CustomerCount = customers.Count,
+                OrderCount = orders.Count
             };
 
             return View(viewModel);
@@ -40,7 +40,7 @@ namespace ABCRetailers.Controllers
         }
 
         [HttpPost]
-       /* public async Task<IActionResult> InitializeStorage()
+        public async Task<IActionResult> InitializeStorage()
         {
             try
             {
@@ -53,7 +53,7 @@ namespace ABCRetailers.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }*/
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

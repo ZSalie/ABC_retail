@@ -1,11 +1,11 @@
 ﻿
 using Azure;
-//using Azure.Data.Tables;
+using Azure.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
 namespace ABCRetailers.Models
 {
-    public class Product 
+    public class Product: ITableEntity
     {
         public string PartitionKey { get; set; } = "Product";
         public string RowKey { get; set; } = Guid.NewGuid().ToString();
@@ -28,11 +28,11 @@ namespace ABCRetailers.Models
         public string PriceString { get; set; } = string.Empty;
 
         [Display(Name = "Price")]
-        public decimal Price
+        public double Price
         {
             get
             {
-                return decimal.TryParse(PriceString, out var result) ? result : 0m;
+                return double.TryParse(PriceString, out var result) ? result : 0.0;
             }
             set
             {
@@ -46,5 +46,6 @@ namespace ABCRetailers.Models
 
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = string.Empty;
+        ETag ITableEntity.ETag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

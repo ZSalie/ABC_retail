@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>8f85466a-87be-4681-8481-68b4c0185bad</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,9 @@
     <PackageReference Include="Azure.Data.Tables" Version="12.11.0" />
     <PackageReference Include="Azure.Identity" Version="1.15.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.25.0" />
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.23.0" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.23.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

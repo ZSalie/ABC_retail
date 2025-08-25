@@ -1,11 +1,11 @@
 ﻿
 using Azure;
-//using Azure.Data.Tables;
+using Azure.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
 namespace ABCRetailers.Models
 {
-    public class Order
+    public class Order : ITableEntity
     {
         public string PartitionKey { get; set; } = "Order";
         public string RowKey { get; set; } = Guid.NewGuid().ToString();
@@ -41,11 +41,11 @@ namespace ABCRetailers.Models
 
         [Display(Name = "Unit Price")]
         [DataType(DataType.Currency)]
-        public decimal UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
 
         [Display(Name = "Total Price")]
         [DataType(DataType.Currency)]
-        public decimal TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
 
         [Required]
         [Display(Name = "Status")]
