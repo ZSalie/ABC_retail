@@ -1,5 +1,5 @@
 ﻿
-namespace ABCRetailers.Models.ViewModels
+namespace ABCRetailer.Models.ViewModels
 {
     public class HomeViewModel
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ABCRetailers.Models;
-//using ABCRetailers.Services;
+using ABCRetailer.Models;
+using ABCRetailer.Services;
 
-namespace ABCRetailers.Controllers
+namespace ABCRetailer.Controllers
 {
     public class CustomerController : Controller
     {
@@ -51,7 +51,7 @@ namespace ABCRetailers.Controllers
             if (string.IsNullOrEmpty(id))
                 return NotFound();
 
-            var customer = await _storageService.GetEntityByKeyAsync<Customer>("Customer", id);
+            var customer = await _storageService.GetEntityAsync<Customer>("Customer", id);
             if (customer == null)
                 return NotFound();
 
@@ -66,6 +66,17 @@ namespace ABCRetailers.Controllers
             {
                 try
                 {
+                    var originalCustomer = await _storageService.GetEntityAsync<Customer>("Customer", customer.RowKey);
+                    if (originalCustomer == null)
+                    {
+                        return NotFound();
+                    }
+                    originalCustomer.Name = customer.Name;
+                    originalCustomer.Surname = customer.Surname;
+                    originalCustomer.Email = customer.Email;
+                    originalCustomer.Username = customer.Username;
+                    originalCustomer.ShippingAddress = customer.ShippingAddress;
+
                     await _storageService.UpdateEntityAsync(customer);
                     TempData["Success"] = "Customer updated successfully!";
                     return RedirectToAction(nameof(Index));
@@ -84,7 +95,7 @@ namespace ABCRetailers.Controllers
         {
             try
             {
-                await _storageService.DeleteEntityByKeyAsync<Customer>("Customer", id);
+                await _storageService.DeleteEntityAsync<Customer>("Customer", id);
                 TempData["Success"] = "Customer deleted successfully!";
             }
             catch (Exception ex)

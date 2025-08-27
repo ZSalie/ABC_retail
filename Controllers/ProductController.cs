@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ABCRetailers.Models;
-//using ABCRetailers.Services;
-using Microsoft.Extensions.Logging;
+using ABCRetailer.Models;
 using ABCRetailer.Services;
+using Microsoft.Extensions.Logging;
+
 
 namespace ABCRetailer.Controllers
 {

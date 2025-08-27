@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Upload\" />
-    <Folder Include="Views\Order\" />
-    <Folder Include="Views\Product\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Azure.Core" Version="1.47.3" />
     <PackageReference Include="Azure.Data.Tables" Version="12.11.0" />
     <PackageReference Include="Azure.Identity" Version="1.15.0" />

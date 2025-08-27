@@ -3,14 +3,14 @@ using Azure;
 using Azure.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
-namespace ABCRetailers.Models
+namespace ABCRetailer.Models
 {
     public class Product: ITableEntity
     {
         public string PartitionKey { get; set; } = "Product";
         public string RowKey { get; set; } = Guid.NewGuid().ToString();
         public DateTimeOffset? Timestamp { get; set; }
-        public string ETag { get; set; }
+        public ETag ETag { get; set; }
 
         [Display(Name = "Product ID")]
         public string ProductId => RowKey;
@@ -46,6 +46,6 @@ namespace ABCRetailers.Models
 
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = string.Empty;
-        ETag ITableEntity.ETag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //ETag ITableEntity.ETag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

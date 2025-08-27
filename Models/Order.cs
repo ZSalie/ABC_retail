@@ -3,7 +3,7 @@ using Azure;
 using Azure.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
-namespace ABCRetailers.Models
+namespace ABCRetailer.Models
 {
     public class Order : ITableEntity
     {

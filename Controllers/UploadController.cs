@@ -1,5 +1,5 @@
 ﻿using ABCRetailer.Services;
-using ABCRetailers.Models;
+using ABCRetailer.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABCRetailer.Controllers

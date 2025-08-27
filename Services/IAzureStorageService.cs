@@ -1,16 +1,16 @@
 ﻿using Azure.Data.Tables;
-using ABCRetailers.Models;
+using ABCRetailer.Models;
 namespace ABCRetailer.Services
 {
     public interface IAzureStorageService
     {
         //Task<List<T>> GetAllEntitiesAsync<T>() where T : class, ITableEntity, new();
         // Table Operations
-        Task<List<T>> GetAllEntitiesAsync<T>() where T : class, Azure.Data.Tables.ITableEntity, new();
-        Task<T> GetEntityAsync<T>(string partitionKey, string rowKey) where T : class, Azure.Data.Tables.ITableEntity, new();
-        Task AddEntityAsync<T>(T entity) where T : class, Azure.Data.Tables.ITableEntity;
-        Task UpdateEntityAsync<T>(T entity) where T : class, Azure.Data.Tables.ITableEntity;
-        Task DeleteEntityAsync<T>(string partitionKey, string rowKey) where T : class, Azure.Data.Tables.ITableEntity, new();
+        Task<List<T>> GetAllEntitiesAsync<T>() where T : class, ITableEntity, new();
+        Task<T?> GetEntityAsync<T>(string partitionKey, string rowKey) where T : class, ITableEntity, new();
+        Task<T> AddEntityAsync<T>(T entity) where T : class, ITableEntity;
+        Task <T>UpdateEntityAsync<T>(T entity) where T : class, ITableEntity;
+        Task DeleteEntityAsync<T>(string partitionKey, string rowKey) where T : class, ITableEntity, new();
 
         // Blob operations
         Task<string> UploadImageAsync(IFormFile file, string containerName);

@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace ABCRetailers.Models
+namespace ABCRetailer.Models
 {
     public class FileUploadModel
     {

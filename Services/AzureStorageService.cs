@@ -5,7 +5,7 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Azure.Storage.Queues;
 using Azure.Storage.Files.Shares;
-using ABCRetailers.Models;
+using ABCRetailer.Models;
 using System.Text.Json;
 
 namespace ABCRetailer.Services
@@ -24,10 +24,11 @@ namespace ABCRetailer.Services
                 ?? throw new InvalidOperationException("Azure Storage Connection not found");
 
             _tableServiceClient = new TableServiceClient(connectionString);
-            _logger = logger;
+            
             _blobServiceClient = new BlobServiceClient(connectionString);
             _queueServiceClient = new QueueServiceClient(connectionString);
             _shareServiceClient = new ShareServiceClient(connectionString);
+            _logger = logger;
 
             InitializeStorageAsync().Wait();
         }
@@ -38,9 +39,9 @@ namespace ABCRetailer.Services
                 _logger.LogInformation("Starting Azure Storage Initialization...");
 
                 //Tables
-                await _tableServiceClient.CreateTableIfNotExistsAsync("Customer");
-                await _tableServiceClient.CreateTableIfNotExistsAsync("Product");
-                await _tableServiceClient.CreateTableIfNotExistsAsync("Order");
+                await _tableServiceClient.CreateTableIfNotExistsAsync("Customers");
+                await _tableServiceClient.CreateTableIfNotExistsAsync("Products");
+                await _tableServiceClient.CreateTableIfNotExistsAsync("Orders");
                 _logger.LogInformation("Table Created Successfully");
 
                 //Blob Containers
@@ -62,7 +63,7 @@ namespace ABCRetailer.Services
                 _logger.LogInformation("Queues Created Successfully");
 
                 //File Share
-                var contractsShare = _shareServiceClient.GetShareClient("Contracts");
+                var contractsShare = _shareServiceClient.GetShareClient("contracts");
                 await contractsShare.CreateIfNotExistsAsync();
 
                 _logger.LogInformation("File Shares Created Successfully");
@@ -265,10 +266,7 @@ namespace ABCRetailer.Services
 
 
 
-        async Task<List<T>> IAzureStorageService.GetAllEntitiesAsync<T>()
-        {
-            await Task.Delay(100);
-            return new List<T>();
-        }
+        
+        
     }
 }

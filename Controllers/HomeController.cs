@@ -1,12 +1,12 @@
 using ABCRetailer.Models;
 using ABCRetailer.Services;
-using ABCRetailers.Models;
-using ABCRetailers.Models.ViewModels;
-//using ABCRetailers.Services;
+using ABCRetailer.Models;
+using ABCRetailer.Models.ViewModels;
+
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ABCRetailers.Controllers
+namespace ABCRetailer.Controllers
 {
     public class HomeController : Controller
     {
