@@ -33,6 +33,7 @@ namespace ABCRetailer.Controllers
             {
                 try
                 {
+                    customer.RowKey = Guid.NewGuid().ToString(); // Ensure unique RowKey
                     await _storageService.AddEntityAsync(customer);
                     TempData["Success"] = "Customer created successfully!";
                     return RedirectToAction(nameof(Index));
@@ -68,16 +69,15 @@ namespace ABCRetailer.Controllers
                 {
                     var originalCustomer = await _storageService.GetEntityAsync<Customer>("Customer", customer.RowKey);
                     if (originalCustomer == null)
-                    {
                         return NotFound();
-                    }
+
                     originalCustomer.Name = customer.Name;
                     originalCustomer.Surname = customer.Surname;
                     originalCustomer.Email = customer.Email;
                     originalCustomer.Username = customer.Username;
                     originalCustomer.ShippingAddress = customer.ShippingAddress;
 
-                    await _storageService.UpdateEntityAsync(customer);
+                    await _storageService.UpdateEntityAsync(originalCustomer);
                     TempData["Success"] = "Customer updated successfully!";
                     return RedirectToAction(nameof(Index));
                 }

@@ -1,5 +1,4 @@
-﻿<!-- Views/Product/Index.cshtml -->
-@model IEnumerable<ABCRetailer.Models.Product>
+﻿@model IEnumerable<ABCRetailer.Models.Product>
 @{
     ViewData["Title"] = "Products";
 }
@@ -50,7 +49,6 @@
                             @if (product.Price <= 0)
                             {
                                 <br />
-
                                 <small class="text-danger">⚠️ Price not set</small>
                             }
                         </td>

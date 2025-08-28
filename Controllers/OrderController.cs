@@ -3,7 +3,6 @@ using ABCRetailer.Models;
 using ABCRetailer.Models.ViewModels;
 using ABCRetailer.Services;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Linq;
 
 namespace ABCRetailer.Controllers
@@ -79,6 +78,9 @@ namespace ABCRetailer.Controllers
                     // Create order and set Username here
                     var order = new Order
                     {
+                        PartitionKey = "Order",
+                        RowKey = Guid.NewGuid().ToString(), 
+                        //OrderId = Guid.NewGuid().ToString(),
                         CustomerId = model.CustomerId,
                         Username = customer.Name + " " + customer.Surname, // Set username here
                         ProductId = model.ProductId,
@@ -86,7 +88,9 @@ namespace ABCRetailer.Controllers
                         Quantity = model.Quantity,
                         UnitPrice = product.Price,
                         TotalPrice = product.Price * model.Quantity,
-                        Status = "Submitted" // Always starts as Submitted
+                        Status = "Submitted", // Always starts as Submitted
+                        OrderDate = DateTime.SpecifyKind(model.OrderDate, DateTimeKind.Utc)
+
                     };
 
                     await _storageService.AddEntityAsync(order);
@@ -98,7 +102,7 @@ namespace ABCRetailer.Controllers
                     // Send message for new order
                     var orderMessage = new
                     {
-                        OrderId = order.OrderId,
+                        OrderId = order.RowKey, 
                         CustomerId = customer.CustomerId,
                         CustomerName = customer.Name + " " + customer.Surname,
                         ProductName = product.ProductName,
@@ -181,7 +185,20 @@ namespace ABCRetailer.Controllers
             {
                 try
                 {
-                    await _storageService.UpdateEntityAsync(order);
+                    // Retrieve original order to preserve metadata
+                    var originalOrder = await _storageService.GetEntityAsync<Order>("Order", order.RowKey);
+                    if (originalOrder == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update fields
+                    originalOrder.Quantity = order.Quantity;
+                    originalOrder.Status = order.Status;
+                    originalOrder.TotalPrice = order.UnitPrice * order.Quantity;
+
+                    await _storageService.UpdateEntityAsync(originalOrder);
+
                     TempData["Success"] = "Order updated successfully!";
                     return RedirectToAction(nameof(Index));
                 }
@@ -189,7 +206,6 @@ namespace ABCRetailer.Controllers
                 {
                     ModelState.AddModelError("", $"Error updating order: {ex.Message}");
                 }
-
             }
             return View(order);
         }
@@ -233,8 +249,10 @@ namespace ABCRetailer.Controllers
                 return Json(new { success = false });
             }
         }
+    
 
-        [HttpPost]
+
+[HttpPost]
         public async Task<IActionResult> UpdateOrderStatus(string id, string newStatus)
         {
             try
